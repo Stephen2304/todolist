@@ -17,7 +17,7 @@ if(isset($_POST['addtask'])){
               $task_add_query = "INSERT INTO task_table (task_name, task_description, date_begin, date_end) 
                   VALUES  ('$task_add', '$task_add1', '$task_add_date_begin', '$task_add_date_end')";
 
-                  $add_query = $dbcon -> query($task_add_query);
+                  $add_query = $conn -> query($task_add_query);
 
         }
        }

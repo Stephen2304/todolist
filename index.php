@@ -1,14 +1,22 @@
 <?php
 session_start();
 require_once "header.php";
+if (!isset($_SESSION['username'])) {
+  header("Location: login.php");
+}
+
  ?>
+
 
 
 <div class="container">
   <div class="row">
     <div class="col-8 m-auto">
-    <h2 class="display-4 text-center" >My To Do List By DsrPro</h2>
-    <h5  class="display-5 text-center"> <a href="historique.php">HISTORIQUE</a></h5>
+    <h1 class="display-3 text-center">Bienvenue <?php echo $_SESSION['username']; ?>!</h1>
+    <h2 class="display-6 text-center">C'est votre To Do List By DsrPro</h2>
+    <h5 class="display-5 text-center"><a href="logout.php" style="color:red">Déconnexion</a></h5>
+    <h5 class="display-5 text-center"> <a href="historique.php">HISTORIQUE</a></h5>
+    
       <form class="mt-4" action="index_valid.php" method="post">
         <div class="form-group">
           <input class= "form-control form-control-lg" type="text" name="task_name" placeholder="Enter your task"  >
@@ -89,7 +97,7 @@ require_once "header.php";
 <?php
 require_once "db.php";
 $task_show_query = "SELECT * FROM task_table";
-$result = $dbcon -> query($task_show_query);
+$result = $conn -> query($task_show_query);
 if($result->num_rows!=0){
   $serial = 1;
   foreach ($result as $row) {

@@ -5,7 +5,7 @@ if (isset($_GET['id'])) {
   $id = base64_decode($_GET['id']);
   $delete_query = "DELETE FROM task_table WHERE id=$id";
   $delete_query;
-  $run_query = $dbcon->query($delete_query);
+  $run_query = $conn->query($delete_query);
   if($run_query){
     $_SESSION['delete_success'] = "Task delete successfully";
 }

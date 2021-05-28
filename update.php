@@ -1,10 +1,13 @@
 
 <?php
+if (!isset($_SESSION['username'])) {
+  header("Location: login.php");
+}
 session_start();
 require_once 'db.php';
 $id = base64_decode($_GET['id']);
 $data = "SELECT * FROM task_table WHERE id=$id";
-$data_from_db = $dbcon->query($data);
+$data_from_db = $conn->query($data);
 $f_result = $data_from_db->fetch_assoc();
 $f_result1 = $data_from_db->fetch_assoc();
 $f_result2 = $data_from_db->fetch_assoc();
@@ -18,7 +21,7 @@ if(isset($_POST['update'])){
   $update_query = "UPDATE task_table SET task_name='$update_text', task_description ='$update_text1',
                                           date_begin = '$update_date_begin', date_end = '$update_date_end'
                                            WHERE id=$id";
-  $update_date = $dbcon->query($update_query);
+  $update_date = $conn->query($update_query);
   if($update_date){
     $_SESSION['upadate_success'] = "Task updated successfully!";
   }
