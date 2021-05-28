@@ -10,6 +10,17 @@ require_once "header.php";
     <h2 class="display-4 text-center" >HISTORIQUE</h2>
     <h5  class="display-5 text-center"> <a href="index.php">ToDoList</a></h5>
 
+
+<div class="form-group row">
+  <label for="example-date-input" class="col-2 col-form-label" id="date_send">Date</label>
+  <div class="col-3">
+    <form method="GET" action="historique.php" >
+      <input class="form-control" type="date" name="date" id="example-date-input">
+      <input type="submit" value="Envoyer">
+    </form>
+  </div>
+</div>
+
 <table style="width:96%;" class="table table-sm table-borderless table-striped text-center mx-auto mt-3" > 
 <thead class="bg-dark text-white text-center">
   <tr>
@@ -30,7 +41,9 @@ require_once "header.php";
 <?php
 require_once "db.php";
 
-$task_show_query = "SELECT * FROM historique";
+if(isset($_GET['date'])){
+  $date = $_GET['date'];
+$task_show_query = "SELECT * FROM `historique` WHERE `date_action` = '$date'";
 
 $result = $dbcon -> query($task_show_query);
 if($result->num_rows!=0){
@@ -38,6 +51,7 @@ if($result->num_rows!=0){
   foreach ($result as $row) {
     $temp_date_time=(explode(' ',$row['added_tiime']));
     $date = $temp_date_time[0];
+
 
 
 ?>
@@ -68,14 +82,17 @@ if($result->num_rows!=0){
 
 }
 }
+}
 // ========================== if no data found ========================
 else{
 ?>
   <tr>
-  <td colspan="20" class="text-center display-4" >No task</td>
+  <td colspan="20" class="text-center display-4" >Selectionner une date</td>
   </tr>
 <?php
 }
+
+
 ?>
 
 
@@ -84,3 +101,4 @@ else{
 </div>
 </div>
 </div>
+
